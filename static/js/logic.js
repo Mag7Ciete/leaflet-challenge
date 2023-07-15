@@ -34,32 +34,38 @@ document.addEventListener("DOMContentLoaded", function() {
   // Helper function to determine marker color based on depth
   function getColor(depth) {
     if (depth < 10) {
-      return "#1a9850"; // Green
+      return "#00ff00"; 
     } else if (depth < 30) {
-      return "#fee08b"; // Yellow
-    } else {
-      return "#d73027"; // Red
+      return "#ff99cc"; 
+    } else if (depth <50) {
+      return "#663399"; 
+    } else if (depth < 70) {
+      return "#ff9900";
+    } else if (depth < 90) {
+      return "#cc0066";
+    } else if (depth > 90) {
+      return "#d73027";
     }
   }
-
 
 // Create a legend control
 var legend = L.control({ position: "bottomright" });
 // Details for the legend
-legend.onAdd = function(map) {
+legend.onAdd = function() {
   var div = L.DomUtil.create("div", "info legend");
 
   // Define the legend labels and corresponding colors
-  var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
-  var colors = ["#1a9850", "#fee08b", "#d73027"];
+  var labels = [-10, 10, 30, 50, 70, 90 ];
+  var colors = ["#00ff00", "#ff99cc", "#663399", "#ff9900", "#d73027", "#cc0066"];
+//var labels = ["-10-10", "10-30", "30-50", "50-70", "70-90", "90+"];
 
   // Generate the legend HTML
   for (var i = 0; i < labels.length; i++) {
     div.innerHTML +=
-    labels.push()
-      '<i class="circle" style="background:' + colors[i] + '"></i> ' + labels[i] + "<br>";
+
+      '<i  style="background:' + colors[i] + '"></i> ' + labels[i] + (labels[i + 1] ? "&ndash;" + labels[i + 1] + "<br>" : "+");
   }
-div.innerHTML = labels.join('<br>');
+//div.innerHTML = labels.join('<br>');
   return div;
 };
 
@@ -67,3 +73,4 @@ div.innerHTML = labels.join('<br>');
 legend.addTo(myMap);
 } 
 );
+
